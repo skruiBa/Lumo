@@ -12,25 +12,25 @@ interface ExpandedLogsProps {
 }
 
 const ExpandedLogs: React.FC<ExpandedLogsProps> = ({ isOpen, imageUrl, onClose }) => {
-  const [logs, setLogs] = useState<string | null>(null);
+  // const [logs, setLogs] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (isOpen) {
-      // Fetch logs from localStorage when the modal opens
-      const logsString = localStorage.getItem(`${imageUrl}-logs`);
+  // useEffect(() => {
+  //   if (isOpen) {
+  //     // Fetch logs from localStorage when the modal opens
+  //     const logsString = localStorage.getItem(`${imageUrl}-logs`);
 
-      if (logsString !== null) {
-        try {
-          const parsedLogs = JSON.parse(logsString);
-          setLogs(parsedLogs); // Store parsed logs in state
-        } catch (error) {
-          console.error('Error parsing logs:', error);
-        }
-      } else {
-        setLogs(null); // No logs found
-      }
-    }
-  }, [isOpen, imageUrl]);
+  //     if (logsString !== null) {
+  //       try {
+  //         const parsedLogs = JSON.parse(logsString);
+  //         setLogs(parsedLogs); // Store parsed logs in state
+  //       } catch (error) {
+  //         console.error('Error parsing logs:', error);
+  //       }
+  //     } else {
+  //       setLogs(null); // No logs found
+  //     }
+  //   }
+  // }, [isOpen, imageUrl]);
 
   // Prevent the modal from rendering if not open
   if (!isOpen) return null;

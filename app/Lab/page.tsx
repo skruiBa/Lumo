@@ -15,7 +15,7 @@ import { usePathname } from 'next/navigation';
 
 function MainPage() {
   const [imageUrl, setImageUrl] = useState('');
-  const [prompt, setPrompt] = useState('fighting kangaroo in the jungle');
+  const [prompt, setPrompt] = useState('cat is in the bag');
   const [seed, setSeed] = useState(42);
   const [randomizeSeed, setRandomizeSeed] = useState(true);
   const [numInferenceSteps, setNumInferenceSteps] = useState(4);

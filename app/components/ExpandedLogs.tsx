@@ -12,7 +12,6 @@ interface ExpandedLogsProps {
 }
 
 const ExpandedLogs: React.FC<ExpandedLogsProps> = ({ isOpen, imageUrl, onClose }) => {
-  if (!isOpen) return null;
   const [logs, setLogs] = useState<string | null>(null);
 
   useEffect(() => {
@@ -32,10 +31,19 @@ const ExpandedLogs: React.FC<ExpandedLogsProps> = ({ isOpen, imageUrl, onClose }
       }
     }
   }, [isOpen, imageUrl]);
+
+  // Prevent the modal from rendering if not open
+  if (!isOpen) return null;
+
+  const handleOutsideClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-filter backdrop-blur"
-      onClick={onClose}
+      onClick={handleOutsideClick}
     >
       <div className="relative ">
         <div className="bg-[#D9D9D9]/10 rounded-[16px] shadow-2xl p-5 w-[800px] h-[800px]">

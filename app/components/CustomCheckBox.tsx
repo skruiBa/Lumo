@@ -4,6 +4,7 @@ import React from 'react';
 interface CustomCheckboxProps {
   checked: boolean;
   onChange: (checked: boolean) => void;
+  className?: string;
 }
 
 const CustomCheckbox: React.FC<CustomCheckboxProps> = (props) => {
@@ -13,7 +14,7 @@ const CustomCheckbox: React.FC<CustomCheckboxProps> = (props) => {
 
   return (
     <div className="flex items-center">
-      <input type="checkbox" checked={props.checked} onChange={handleChange} className="form-checkbox h-6 w-6 " />
+      <input type="checkbox" checked={props.checked} onChange={handleChange} className={props.className} />
     </div>
   );
 };

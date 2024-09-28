@@ -1,12 +1,13 @@
 'use client';
 // ui/footer.tsx
+import Image from 'next/image';
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 // Define the links array
 const links = [
-  { name: 'AI Lab', href: '/Lab' }
+  { name: 'AI Lab', href: '/lab' }
 
   // Add more links here as needed
 ];
@@ -18,14 +19,11 @@ const Navbar = () => {
     <nav className="sticky top-0 p-2 z-50">
       <div className="container mx-auto flex items-center justify-between">
         {/* Logo */}
-        {/* <div>
-        <Link href="/" className="text-[#FDF17A] text-xl font-bold">
-          MyLogo
-        </Link>
-      </div> */}
+
+        <Image src="/lumo-logo-512x512.png" alt="Logo" width={50} height={50} />
 
         {/* Navigation Links */}
-        <div className="flex-1 flex justify-center space-x-4">
+        <div className="flex-1 flex justify-center space-x-4 -ml-[50px]">
           {links.map((link) => {
             return (
               <Link

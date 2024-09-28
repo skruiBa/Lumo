@@ -27,3 +27,28 @@ a {
   color: #0070f3;
   text-decoration: none;
 }
+
+/* Custom Scrollbar Styles */
+textarea::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+}
+
+textarea::-webkit-scrollbar-track {
+  background: rgba(28, 23, 14, 0.2); /* Track color */
+  border-radius: 10px; /* Rounded corners for the track */
+}
+
+textarea::-webkit-scrollbar-thumb {
+  background: #e69d37; /* Scrollbar color */
+  border-radius: 10px; /* Rounded corners for the scrollbar */
+}
+
+textarea::-webkit-scrollbar-thumb:hover {
+  background: #d9d9d9; /* Color when hovering over the scrollbar */
+}
+
+/* For Firefox */
+textarea {
+  scrollbar-width: thin; /* Use 'thin' for a thin scrollbar */
+  scrollbar-color: #e69d37 rgba(0, 0, 0, 0.4); /* Thumb color and track color */
+}

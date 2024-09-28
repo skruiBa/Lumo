@@ -15,7 +15,9 @@ import { usePathname } from 'next/navigation';
 
 function MainPage() {
   const [imageUrl, setImageUrl] = useState('');
-  const [prompt, setPrompt] = useState('cat is in the bag');
+  const [prompt, setPrompt] = useState(
+    'A serene sunset over a calm lake, with silhouetted mountains in the background.'
+  );
   const [seed, setSeed] = useState(42);
   const [randomizeSeed, setRandomizeSeed] = useState(true);
   const [numInferenceSteps, setNumInferenceSteps] = useState(4);
@@ -27,16 +29,16 @@ function MainPage() {
   const [storedImages, setStoredImages] = useState<string[]>([]);
   const pathname = usePathname(); // Use the usePathname hook
 
+  useEffect(() => {
+    updateStoredImages(); // Run on mount and on route change
+  }, [pathname]);
+
   // Update stored images whenever the page is loaded or navigated to
   const updateStoredImages = () => {
     const images = JSON.parse(localStorage.getItem('storedImages') || '[]');
     console.log('Loaded images from localStorage:', images); // Debugging line
     setStoredImages(images);
   };
-
-  useEffect(() => {
-    updateStoredImages(); // Run on mount and on route change
-  }, [pathname]);
 
   const handleGenerateImage = async () => {
     setToastMessage('Generating picture, please wait!'); // Show error message
@@ -62,6 +64,7 @@ function MainPage() {
       const result = await response.json();
 
       const url = result.data[0].url;
+      console.log('Generated image URL:', url);
       const logs = {
         input: result.requestMessage,
         results: result.data[0]
@@ -80,7 +83,7 @@ function MainPage() {
       setToastColor('bg-green-600');
     } catch (error) {
       console.error(error);
-      setToastMessage('Error generating image. Please try again later.');
+      setToastMessage('Error generating image. Please try again in a few minutes.');
       setToastColor('bg-red-600');
     }
   };
@@ -92,36 +95,52 @@ function MainPage() {
   return (
     <div className="flex mx-10 gap-16 justify-center mt-[16px]">
       {/* Left side: prompt options */}
-      <PageCard
-        width="500px"
-        height="650px"
-        className="bg-[#D9D9D9]/10 rounded-[16px] shadow-2xl p-5 flex flex-col gap-2"
-      >
+      <PageCard width="500px" height="650px">
         {/* Prompt */}
-        <div className="text-[#fbeadc]/90 text-[20px] leading-loose ">Prompt</div>
-        <CustomTextArea width="100%" height="25%" value={prompt} onChange={(e) => setPrompt(e?.target?.value)} />
+        <div className="flex justify-between items-center">
+          <div className="text-[#fbeadc] text-[22px] font-semibold">Prompt</div>
+          <CustomTextArea width="77%" height="220px" value={prompt} onChange={(e) => setPrompt(e?.target?.value)} />
+        </div>
 
         {/* Seed */}
-        <div className="text-[#fbeadc]/90 text-[20px] leading-loose ">Seed</div>
-        <CustomSlider value={seed} onChange={(_, value) => setSeed(value as number)} min={0} max={100} />
+        <div className="flex justify-between items-center">
+          <div className="text-[#fbeadc] text-[22px] font-semibold">Seed</div>
+          <CustomSlider
+            value={seed}
+            onChange={(_, value) => setSeed(value as number)}
+            min={0}
+            max={100}
+            className="w-2/3"
+            sx={{ color: '#e69d37' }}
+          />
+        </div>
 
         {/* Randomize */}
-        <div className="text-[#fbeadc]/90 text-[20px] leading-loose ">Randomize seed</div>
-        <CustomCheckbox checked={randomizeSeed} onChange={(checked) => setRandomizeSeed(checked)} />
+        <div className="flex justify-between items-center">
+          <div className="text-[#fbeadc] text-[22px] font-semibold">Randomize Seed</div>
+          <CustomCheckbox
+            checked={randomizeSeed}
+            onChange={(checked) => setRandomizeSeed(checked)}
+            className="w-8 h-8 appearance-none checked:bg-[#e69d37] checked:border-transparent bg-gray-300 border border-gray-500 rounded"
+          />
+        </div>
 
         {/* Inference Steps */}
-        <div className="text-[#fbeadc]/90 text-[20px] leading-loose ">Number of inference steps</div>
-        <CustomSlider
-          value={numInferenceSteps}
-          onChange={(_, value) => setNumInferenceSteps(value as number)}
-          min={1}
-          max={50}
-        />
+        <div className="flex justify-between items-center">
+          <div className="text-[#fbeadc] text-[22px] font-semibold">Number of Inference Steps</div>
+          <CustomSlider
+            value={numInferenceSteps}
+            onChange={(_, value) => setNumInferenceSteps(value as number)}
+            min={1}
+            max={50}
+            className="w-2/5"
+            sx={{ color: '#e69d37' }}
+          />
+        </div>
 
         {/* Generate Button */}
-        <div className="flex-grow" />
         <div className="mt-auto flex justify-center">
-          <Button text="Generate" onClick={handleGenerateImage} />
+          <Button text="Generate Image" onClick={handleGenerateImage} />
         </div>
       </PageCard>
 

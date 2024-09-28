@@ -9,7 +9,7 @@ const Page: React.FC = () => {
   useEffect(() => {
     // Redirect to /lab after 3 seconds
 
-    pathname === '/Lab' ? (window.location.href = '/') : (window.location.href = '/Lab');
+    pathname === '/lab' ? (window.location.href = '/') : (window.location.href = '/lab');
   }, [pathname]);
 
   return (

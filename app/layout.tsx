@@ -9,7 +9,7 @@ function RootLayout({ children }: { children: React.ReactNode }) {
     <html lang="en">
       <body>
         <Head>
-          <link rel="icon" href="/favicon.ico" />
+          <link rel="icon" href="/favicon.ico" type="image/x-icon" />
           <meta name="description" content="Your website description" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <title>Your Website Title</title>

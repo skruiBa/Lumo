@@ -15,9 +15,7 @@ import { usePathname } from 'next/navigation';
 
 function MainPage() {
   const [imageUrl, setImageUrl] = useState('');
-  const [prompt, setPrompt] = useState(
-    'A serene sunset over a calm lake, with silhouetted mountains in the background.'
-  );
+  const [prompt, setPrompt] = useState('a tiny astronaut hatching from an egg on the moon');
   const [seed, setSeed] = useState(42);
   const [randomizeSeed, setRandomizeSeed] = useState(true);
   const [numInferenceSteps, setNumInferenceSteps] = useState(4);
@@ -95,28 +93,33 @@ function MainPage() {
   return (
     <div className="flex mx-10 gap-16 justify-center mt-[16px]">
       {/* Left side: prompt options */}
-      <PageCard width="500px" height="650px">
-        {/* Prompt */}
-        <div className="flex justify-between items-center">
-          <div className="text-[#fbeadc] text-[22px] font-semibold">Prompt</div>
-          <CustomTextArea width="77%" height="220px" value={prompt} onChange={(e) => setPrompt(e?.target?.value)} />
+      <PageCard width="500px" height="650px" className="flex flex-col p-[16px]">
+        {/* Title Section */}
+        {/* <div className="flex justify-center mb-4">
+          <h1 className="text-[#fbeadc] text-[28px] font-bold">Image Generator</h1>
+        </div> */}
+
+        {/* Prompt Section */}
+        <div className="flex flex-col">
+          <label className="text-[#fbeadc] text-[22px] font-semibold">Prompt</label>
+          <CustomTextArea width="100%" height="200px" value={prompt} onChange={(e) => setPrompt(e?.target?.value)} />
         </div>
 
-        {/* Seed */}
-        <div className="flex justify-between items-center">
-          <div className="text-[#fbeadc] text-[22px] font-semibold">Seed</div>
+        {/* Seed Section */}
+        <div className="flex flex-col">
+          <label className="flex items-center text-[#fbeadc] text-[22px] font-semibold">Seed</label>
           <CustomSlider
             value={seed}
             onChange={(_, value) => setSeed(value as number)}
             min={0}
             max={100}
-            className="w-2/3"
+            className="w-auto"
             sx={{ color: '#e69d37' }}
           />
         </div>
 
-        {/* Randomize */}
-        <div className="flex justify-between items-center">
+        {/* Randomize Seed Section */}
+        <div className="flex items-center justify-between">
           <div className="text-[#fbeadc] text-[22px] font-semibold">Randomize Seed</div>
           <CustomCheckbox
             checked={randomizeSeed}
@@ -125,15 +128,15 @@ function MainPage() {
           />
         </div>
 
-        {/* Inference Steps */}
-        <div className="flex justify-between items-center">
-          <div className="text-[#fbeadc] text-[22px] font-semibold">Number of Inference Steps</div>
+        {/* Inference Steps Section */}
+        <div className="flex flex-col">
+          <label className="text-[#fbeadc] text-[22px] font-semibold">Number of Inference Steps</label>
           <CustomSlider
             value={numInferenceSteps}
             onChange={(_, value) => setNumInferenceSteps(value as number)}
             min={1}
             max={50}
-            className="w-2/5"
+            className="w-auto"
             sx={{ color: '#e69d37' }}
           />
         </div>

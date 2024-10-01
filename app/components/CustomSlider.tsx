@@ -17,11 +17,11 @@ const CustomSlider: React.FC<CustomSliderProps> = (props) => {
       defaultValue={0}
       aria-label="Default"
       valueLabelDisplay="auto"
-      className={props.className}
       min={props.min}
       max={props.max}
       value={props.value}
-      sx={props.sx}
+      className={`${props.className} w-auto`} // Ensures Tailwind is fully in control of width
+      sx={{ ...props.sx, width: '100%' }} // Remove width overrides if any
       onChange={props.onChange}
     />
   );

@@ -43,11 +43,34 @@ export async function POST(req) {
       num_inference_steps: num_inference_steps
     });
     console.log('result', result.data[0]);
+    // You might want to check if the image is immediately available
+    const imageUrl = result.data[0]?.url;
+
+    if (!imageUrl) {
+      throw new Error('Image URL is missing from the response');
+    }
+    // If you want to wait until the image is fully available (Optional)
+    let imageAvailable = false;
+    for (let i = 0; i < 5; i++) {
+      // Retry up to 5 times
+      const check = await fetch(imageUrl, { method: 'HEAD' });
+      if (check.ok) {
+        imageAvailable = true;
+        break;
+      }
+      await new Promise((resolve) => setTimeout(resolve, 2000)); // Wait 2 seconds before retry
+    }
+    if (!imageAvailable) {
+      throw new Error('Image not available after retries');
+    }
 
     // Send the response
     return new Response(JSON.stringify({ requestMessage, data: result.data }), {
       status: 200,
-      headers: { 'Content-Type': 'application/json' }
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-cache' // Disable caching
+      }
     });
   } catch (error) {
     console.error('Error generating image:', error);

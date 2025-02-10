@@ -36,7 +36,7 @@ function MainPage() {
     setToastAttributes('Generating image...', 'bg-[#e79f39]', 20000);
 
     const vividPrompt = isVivid ? 'vivid' : 'natural';
-    const hdPrompt = isHD ? 'hd' : '';
+    const hdPrompt = isHD ? 'hd' : 'standard';
     try {
       const res = await fetch('/api/dalle', {
         method: 'POST',

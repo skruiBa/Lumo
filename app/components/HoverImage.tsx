@@ -43,22 +43,22 @@ const HoverImage: React.FC<HoverImageProps> = ({
   };
   const handleDownload = async () => {
     try {
-      // Fetch the image as a blob
-      const response = await fetch(src, { mode: 'cors' }); // Ensure CORS is handled
+      const response = await fetch('/api/download-image', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ src })
+      });
       if (!response.ok) throw new Error('Network response was not ok');
-      const blob = await response.blob(); // Convert the response to a blob
 
-      // Create a URL for the blob
+      const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
 
-      // Create a temporary anchor element and set the blob URL as the href
+      // Create a temporary anchor element for the download
       const link = document.createElement('a');
       link.href = url;
-      link.download = src; // Specify the file extension
+      link.download = 'downloaded-image.png';
       document.body.appendChild(link);
       link.click();
-
-      // Clean up the temporary URL and element
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
     } catch (error) {

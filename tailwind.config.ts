@@ -6,7 +6,12 @@ const config: Config = {
     './components/**/*.{js,ts,jsx,tsx,mdx}' // Components can be outside src
   ],
   theme: {
-    extend: {}
+    extend: {
+      colors: {
+        primary: '#e79f39',
+        secondary: '#00050a'
+      }
+    }
   },
   plugins: []
 };

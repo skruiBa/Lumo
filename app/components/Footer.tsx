@@ -1,32 +1,33 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-black text-white py-4">
+    <footer className="bg-transparent text-white w-full   py-4 fixed  justify-items-center items-center justify-center text-sm bottom-0 left-0">
       <div className="container mx-auto text-center">
-        <p className="text-sm">© {new Date().getFullYear()} Lumo. All rights reserved.</p>
-        <p className="text-sm">Built by skruiBa.</p>
+        <p className="text-sm">© {new Date().getFullYear()} Lumo. All rights reserved</p>
+        <p className="text-sm">Made by skruiBa</p>
         <p className="text-sm">
-          Follow us on{' '}
-          <a
+          Follow me on{' '}
+          <Link
             href="https://x.com/Skruiba"
             target="_blank"
             rel="noopener noreferrer"
             className="text-[#e69d37] hover:underline"
           >
             X
-          </a>{' '}
+          </Link>{' '}
           or check out my{' '}
-          <a
+          <Link
             href="https://github.com/skruiBa"
             target="_blank"
             rel="noopener noreferrer"
             className="text-[#e69d37] hover:underline"
           >
             GitHub
-          </a>
+          </Link>
           .
         </p>
       </div>

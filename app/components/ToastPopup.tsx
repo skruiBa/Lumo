@@ -6,8 +6,8 @@ import { useEffect } from 'react';
 interface ToastPopupProps {
   message: string;
   onClose: () => void;
-  color?: string;
-  duration?: number;
+  color: string;
+  duration: number;
 }
 
 const ToastPopup: React.FC<ToastPopupProps> = ({ message, onClose, duration, color = 'bg-gray-800' }) => {

@@ -12,8 +12,8 @@ const nunitoSans = localFont({
 });
 
 export const metadata = {
-  title: 'Prodify',
-  description: 'Handle your daily tasks with ease.',
+  title: 'Lumo',
+  description: 'Create images with AI, no limitations!',
   icons: {
     icon: '/logo.svg' // Automatically handles favicon
   }

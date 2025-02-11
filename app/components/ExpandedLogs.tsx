@@ -19,16 +19,16 @@ const ExpandedLogs: React.FC<ExpandedLogsProps> = ({ isOpen, imageUrl, onClose }
       // Fetch logs from localStorage when the modal opens
       const logsString = localStorage.getItem(`${imageUrl}-logs`);
 
-      if (logsString !== null) {
-        try {
-          const parsedLogs = JSON.parse(logsString);
-          setLogs(parsedLogs); // Store parsed logs in state
-        } catch (error) {
-          console.error('Error parsing logs:', error);
-        }
-      } else {
-        setLogs(null); // No logs found
+      try {
+        const parsedLogs = JSON.parse(logsString || '[]');
+        setLogs(parsedLogs); // Store parsed logs in state
+        console.error('Error parsing logs:', parsedLogs);
+      } catch (error) {
+        console.error('Error parsing logs:', error);
       }
+
+      setLogs(null); // No logs found
+      console.error('No logs found');
     }
   }, [isOpen, imageUrl]);
 
@@ -47,11 +47,8 @@ const ExpandedLogs: React.FC<ExpandedLogsProps> = ({ isOpen, imageUrl, onClose }
       onClick={handleOutsideClick}
     >
       <div className="relative ">
-        <div className="bg-[#D9D9D9]/10 rounded-[16px] shadow-2xl p-5 w-[800px] h-[800px] ">
-          <p className="text-[#21a661] whitespace-pre-wrap">
-            {' '}
-            {logs ? JSON.stringify(logs, null, 2) : 'No logs found'}
-          </p>
+        <div className="bg-[#D9D9D9]/10 rounded-[16px] shadow-2xl p-5 w-[700px] h-[700px] ">
+          <p className="text-primary whitespace-pre-wrap"> {logs ? JSON.stringify(logs, null, 2) : 'No logs found'}</p>
         </div>
 
         {/* Close button */}

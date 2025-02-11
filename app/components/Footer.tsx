@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-transparent text-white w-full   py-4 fixed  justify-items-center items-center justify-center text-sm bottom-0 left-0">
+    <footer className="bg-transparent text-white w-full   py-4  justify-items-center items-center justify-center text-sm ">
       <div className="container mx-auto text-center">
         <p className="text-sm">© {new Date().getFullYear()} Lumo. All rights reserved</p>
         <p className="text-sm">Made by skruiBa</p>

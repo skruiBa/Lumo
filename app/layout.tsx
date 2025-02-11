@@ -24,14 +24,14 @@ function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body
-        className={`${nunitoSans.className} antialiased h-screen flex flex-col bg-no-repeat bg-cover bg-center`}
+        className={`${nunitoSans.className} antialiased h-screen flex flex-col bg-no-repeat bg-cover bg-center bg-fixed `}
         style={{
-          backgroundImage: "linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/background2.svg')"
+          backgroundImage: "linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('/background2.svg')"
         }}
       >
         <div>
           <Navbar />
-          <main className="flex-grow">
+          <main className="flex-grow pb-20">
             {children}
             <SpeedInsights />
           </main>

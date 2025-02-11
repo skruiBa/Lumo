@@ -13,6 +13,8 @@ import ToastPopup from './components/ToastPopup';
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import CustomRadioGroup from './components/CustomRadioGroup';
+import { Tooltip } from '@mui/material';
+import HelpIcon from '@mui/icons-material/Help';
 
 function MainPage() {
   const [imageUrl, setImageUrl] = useState('');
@@ -23,8 +25,8 @@ function MainPage() {
   const [toastDuration, setToastDuration] = useState<number>(3000);
 
   // Parameters
-  const [isHD, setIsHD] = useState<boolean>(false);
-  const [isVivid, setIsVivid] = useState<boolean>(false);
+  const [isHD, setIsHD] = useState<boolean>(true);
+  const [isVivid, setIsVivid] = useState<boolean>(true);
   const [selectedSize, setSelectedSize] = useState('1024x1024');
   const sizeOptions = [
     { label: '1024x1024', value: '1024x1024' },
@@ -51,6 +53,17 @@ function MainPage() {
       setImageUrl(data.image);
       console.log('Response:', data);
       setToastAttributes('Image generated successfully!', 'bg-green-600', 5000);
+
+      // Set logs from localstorage
+
+      const logs = {
+        prompt: prompt,
+        size: selectedSize,
+        hd: hdPrompt,
+        vivid: vividPrompt
+      };
+
+      localStorage.setItem(`${imageUrl}-logs`, JSON.stringify(logs));
     } catch (error) {
       console.error('Error:', error);
       setToastAttributes('Something went wrong. The service might be down. Please try again.', 'bg-red-600', 5000);
@@ -68,7 +81,7 @@ function MainPage() {
   };
 
   return (
-    <div className="flex mx-10 gap-16 justify-center mt-[16px]">
+    <div className="flex mx-10 gap-16 justify-center mt-2">
       {/* Left side: prompt options */}
       <PageCard width="500px" height="607px">
         {/* Title Section */}
@@ -92,17 +105,29 @@ function MainPage() {
 
         {/* Style: Vivid / natural */}
         <div className="flex flex-row  justify-between">
-          <label className="text-[#fbeadc] text-[22px] font-semibold" htmlFor="vivid">
-            Vivid
-          </label>
+          <Tooltip
+            sx={{
+              fontSize: '2rem'
+            }}
+            placement="right"
+            title="Recommended: ON. Vivid creates more hyper-real and dramatic images"
+          >
+            <label className="text-[#fbeadc] text-[22px] font-semibold flex items-center gap-2" htmlFor="vivid">
+              Vivid
+              <HelpIcon />
+            </label>
+          </Tooltip>
           <CustomCheckbox checked={isVivid} onChange={setIsVivid} id="vivid" />
         </div>
 
         {/* HD: yes / no */}
         <div className="flex flex-row  justify-between">
-          <label className="text-[#fbeadc] text-[22px] font-semibold" htmlFor="hd">
-            HD
-          </label>
+          <Tooltip placement="right" title="Recommended: ON. HD creates images with finer details">
+            <label className="text-[#fbeadc] text-[22px] font-semibold flex items-center gap-2" htmlFor="hd">
+              HD
+              <HelpIcon />
+            </label>
+          </Tooltip>
           <CustomCheckbox checked={isHD} onChange={setIsHD} id="hd" />
         </div>
         {/* Size: 1024x1024, 1792x1024, 1024x1792 */}
@@ -118,22 +143,22 @@ function MainPage() {
       </PageCard>
 
       {/* Image Section */}
-      <PageCard width="500px" height="607px">
+      <div className="flex items-center">
         {/* Top section, Large image */}
         <div className="flex-grow justify-center align-center">
           {imageUrl ? (
             <HoverImage
               src={imageUrl}
               alt="Generated Image"
-              width={680}
-              height={680}
+              width={500}
+              height={600}
               className="object-cover rounded-lg shadow-lg"
             />
           ) : (
             <></>
           )}
         </div>
-      </PageCard>
+      </div>
 
       {/* Show the Toast if there's a message */}
       {toastMessage && (

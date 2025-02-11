@@ -1,5 +1,4 @@
 {
-  "/api/download-image/route": "app/api/download-image/route.js",
   "/api/dalle/route": "app/api/dalle/route.js",
   "/page": "app/page.js"
 }

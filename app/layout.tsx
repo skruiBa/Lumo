@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import Head from 'next/head';
 import Footer from './components/Footer';
 import localFont from 'next/font/local';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 // Font
 const nunitoSans = localFont({
@@ -30,7 +31,10 @@ function RootLayout({ children }: { children: React.ReactNode }) {
       >
         <div>
           <Navbar />
-          <main className="flex-grow">{children}</main>
+          <main className="flex-grow">
+            {children}
+            <SpeedInsights />
+          </main>
           <Footer />
         </div>
       </body>
